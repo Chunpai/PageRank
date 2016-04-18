@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 if __name__ == "__main__":
     infile = open("links.txt","r")
@@ -10,7 +12,7 @@ if __name__ == "__main__":
         fields = line.strip().split("\t")
         if fields[0] not in page_dict: 
             page_list.append(fields[0])
-            page_dict[fields[0]] = [fields[1]]      #page_dict doesnot contain deadend as key
+            page_dict[fields[0]] = [fields[1]]  
         else:
             page_dict[fields[0]].append(fields[1])
         if fields[1] not in page_dict:
@@ -32,7 +34,9 @@ if __name__ == "__main__":
             #print deg_dict[page][index]
         #print page_dict[page]
     #print deg_dict
-    
+   
+   
+     
     teleport = np.array([0.001] * length)
     for interation in range(50):
         rank_vec_next = np.array([0.0] * length)
@@ -51,3 +55,14 @@ if __name__ == "__main__":
     for rank in top_10_ranks:
         index = stationary_ranks.index(rank)
         print page_list[index]
+
+
+
+    #plt.xlabel('page_rank')
+    #plt.ylabel("stationary probability")
+    plt.axis([0,length,0,1])
+    x_axis = [i for i in range(length)]
+    plt.plot(x_axis,stationary_ranks,"ro")
+    plt.savefig("pageRank.png")
+
+
